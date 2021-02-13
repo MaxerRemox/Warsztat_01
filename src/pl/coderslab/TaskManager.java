@@ -16,11 +16,9 @@ public class TaskManager {
     public static void main(String[] args) throws IOException {
         optionsList();
         Scanner scan = new Scanner(System.in);
-        String end = "";
         label:
-        while (!end.equals("exit")) {
+        while (true) {
             String check = scan.next();
-            end = check;
             switch (check) {
                 case "exit":
                     System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "Pa pa :)");
@@ -104,20 +102,21 @@ public class TaskManager {
     public static void removeFromList() throws IOException {
         Path path1 = Paths.get("tasks.csv");
         List<String> result = listFromFile();
-
         System.out.println("Podaj ktore zadnaie chcesz usunac");
         Scanner scan = new Scanner(System.in);
         boolean end = false;
         while (!end) {
-            int index = scan.nextInt();
             try {
+                int index = scan.nextInt();
                 result.remove(index);
                 end = true;
             } catch (IndexOutOfBoundsException e) {
                 System.out.println(ConsoleColors.YELLOW_BOLD + "Wartosc poza zakresem");
                 System.out.println(ConsoleColors.YELLOW_BOLD + "Podaj poprawna wartosc");
             } catch (InputMismatchException e) {
-                System.out.println("To nie jest liczba");
+                System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "To nie jest liczba");
+                System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT + "Podaj liczbe");
+                scan.next();
             }
         }
 
